@@ -20,13 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DblLLNode.h">
+    <ClInclude Include="LinkedList_Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DblLLIterator.h">
+    <ClInclude Include="LinkedList_Iterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DblLinkedList.h">
+    <ClInclude Include="LinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

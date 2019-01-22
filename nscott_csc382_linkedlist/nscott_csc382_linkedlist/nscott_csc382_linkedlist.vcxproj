@@ -118,9 +118,9 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DblLinkedList.h" />
-    <ClInclude Include="DblLLIterator.h" />
-    <ClInclude Include="DblLLNode.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="LinkedList_Iterator.h" />
+    <ClInclude Include="LinkedList_Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

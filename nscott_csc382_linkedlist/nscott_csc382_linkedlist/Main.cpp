@@ -1,7 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include "DblLinkedList.h"
+#include "LinkedList.h"
 
 template<typename T> void GetUserInput(T* userInput);
 bool TestUserInput();
@@ -9,7 +9,7 @@ bool TestUserInput();
 int main()
 {
 	// Linked list object
-	DblLinkedList<double> myList;
+	LinkedList<double> myList;
 	bool runProgram = true;
 	double userInput = 0;
 	int menuChoice = 0;
@@ -52,7 +52,7 @@ int main()
 			// If the list has no nodes, displays an error message
 			if (myList.IsEmpty())
 			{
-				std::cout << "There are no nodes in the list." << std::endl;
+				// Do nothing
 			}
 			else
 			{
@@ -106,11 +106,13 @@ int main()
 			runProgram = false;
 			break;
 		case 11: // Adds a random amount of random values to the list
-			for (int i = 0; i < (std::rand() % 15 + 10); i++)
+			std::cout << "How many nodes would you like to create? ";
+			GetUserInput(&userInput);
+			for (int i = 0; i < userInput; i++)
 			{
-				userInput = std::rand() % 101;
-				myList.Insert(userInput);
+				myList.Insert(std::rand() % (int)(userInput * 10 + 1), false);
 			}
+			std::cout << userInput << " nodes created.\n";
 			break;
 		case 12: // Prints a list of each value, and the adjacent values and node addresses
 			myList.PrintList(false, true);
