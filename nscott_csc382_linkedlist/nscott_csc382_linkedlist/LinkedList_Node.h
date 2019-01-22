@@ -13,48 +13,49 @@ public:
 	LinkedList_Node() {} // Default constructor
 	~LinkedList_Node() {} // Default destructor
 
-	T GetNodeData() // Getter for the node's stored data
+	// Returns the key value stored in this node
+	T GetNodeData()
 	{
 		return nodeData;
 	}
 
-	// Seteter for the node's stored data
+	// Changes the key value to be stored in this node
 	void SetNodeData(T dataToStore)
 	{
 		nodeData = dataToStore;
 	}
 
-	// Getter for the previous node in the linked list
+	// Returns a pointer to the node immediately preceding this node in the linked list
 	LinkedList_Node<T>* GetPrevNode()
 	{
 		return prevNode;
 	}
 
-	// Setter for the previous node in the linked list
+	// Changes the pointer to the node immediately preceding this node in the linked list
 	template <typename T> void SetPrevNode(LinkedList_Node<T>* nodePtr)
 	{
 		prevNode = nodePtr;
 	}
 
-	// Sets the previous node to null
+	// Sets the pointer to the node immediately preceding this node in the linked list to nullptr
 	void ClearPrevNode()
 	{
 		prevNode = nullptr;
 	}
 
-	// Getter for the next node in the linked list
+	// Returns a pointer to the node immediately following this node in the linked list
 	LinkedList_Node<T>* GetNextNode()
 	{
 		return nextNode;
 	}
 
-	// Setter for the previous node in the linked list
+	// Changes the pointer to the node immediately following this node in the linked list
 	template <typename T> void SetNextNode(LinkedList_Node<T>* nodePtr)
 	{
 		nextNode = nodePtr;
 	}
 
-	// Sets the next node to null
+	// Sets the pointer to the node immediately following this node in the linked list to nullptr
 	void ClearNextNode()
 	{
 		nextNode = nullptr;

@@ -26,12 +26,12 @@ int main()
 		std::cout << " 4. Find lowest value in the list" << std::endl;
 		std::cout << " 5. Find highest value in the list" << std::endl;
 		std::cout << " 6. Display list" << std::endl;
-		std::cout << " 7. Display list in reverse order" << std::endl;
-		std::cout << " 8. Exit program" << std::endl << std::endl;
+		std::cout << " 7. Display list in reverse order" << std::endl << std::endl;
 
 		std::cout << "11. Auto-populate some nodes" << std::endl;
 		std::cout << "12. Print a detailed list" << std::endl << std::endl;
 
+		std::cout << "99. Exit program" << std::endl << std::endl;
 		std::cout << "Your choice: ";
 		std::cin >> menuChoice;
 		std::cin.clear();
@@ -97,13 +97,10 @@ int main()
 			}
 			break;
 		case 6: // Displays the list of the values stored, from head to tail
-			myList.PrintList(false);
+			myList.PrintList(false,false);
 			break;
 		case 7: // Displays the list of the values stored, from tail to head
-			myList.PrintList(true);
-			break;
-		case 8: // Exits the program
-			runProgram = false;
+			myList.PrintList(true,false);
 			break;
 		case 11: // Adds a random amount of random values to the list
 			std::cout << "How many nodes would you like to create? ";
@@ -116,6 +113,9 @@ int main()
 			break;
 		case 12: // Prints a list of each value, and the adjacent values and node addresses
 			myList.PrintList(false, true);
+			break;
+		case 99: // Exits the program
+			runProgram = false;
 			break;
 		}
 

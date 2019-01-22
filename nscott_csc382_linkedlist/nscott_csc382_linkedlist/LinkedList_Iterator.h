@@ -18,19 +18,19 @@ public:
 		currentNode = targetNode;
 	}
 
-	// Returns the current node
+	// Returns a pointer to the current node the iterator is referencing
 	LinkedList_Node<T>* GetCurrentNode() 
 	{
 		return currentNode;
 	}
 
-	// Returns the data stored in the current node
+	// Returns the key value stored in the current node the iterator is referencing
 	T GetNodeData() 
 	{
 		return currentNode->GetNodeData(); 
 	}
 
-	// Iterates back to the previous node (if there is one)
+	// Attempts to move to the previous node in the linked list
 	LinkedList_Node<T>* IterateBack() 
 	{
 		// Returns a null value if there is no previous node (current node is the head)
@@ -46,7 +46,7 @@ public:
 		}
 	}
 
-	// Iterates forward to the next node (if there is one)
+	// Attempts to move to the next node in the linked list
 	LinkedList_Node<T>* IterateFwd() 
 	{
 		// Returns a null value if there is no next node (current node is the tail)

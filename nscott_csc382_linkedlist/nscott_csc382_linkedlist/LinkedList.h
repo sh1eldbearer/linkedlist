@@ -55,7 +55,7 @@ public:
 	LinkedList() {} // Default constructor
 	~LinkedList() {} // Default destructor
 
-	 // Inserts a new node
+	 // Creates a new node, and inserts it at the end the linked list
 	void Insert(T newData, bool verbose = true)
 	{
 		// Creates a new node
@@ -156,7 +156,7 @@ public:
 
 	}
 
-	// Prints the values stored in the list with details about the adjacent nodes
+	// Outputs the key values of each node to the console
 	void PrintList(bool reverse = false, bool detailed = true) // Prints the values stored in the list
 	{
 		// As long as there is at least one node in the list, prints the list
@@ -214,7 +214,7 @@ public:
 		}
 	}
 	
-	// Finds the minimum value stored in the list
+	// Returns the smallest value stored in the nodes contained in the linked list
 	T Minimum()
 	{
 		if (!IsEmpty())
@@ -243,7 +243,7 @@ public:
 		}
 	}
 
-	// Finds the maximum value stored in the list
+	// Returns the largest value stored in the nodes contained in the linked list
 	T Maximum()
 	{
 		if (!IsEmpty())
@@ -272,7 +272,7 @@ public:
 		}
 	}
 
-	// Returns true if the list has no nodes
+	// Determines if the linked list is empty
 	bool IsEmpty()
 	{
 		if (headNode == nullptr && tailNode == nullptr)
