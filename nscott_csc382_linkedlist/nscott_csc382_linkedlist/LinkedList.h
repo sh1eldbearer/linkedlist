@@ -110,18 +110,20 @@ public:
 		// If no value is found, returns a nullptr
 		if (!suppressMsg)
 		{
-			std::cout << "Value not found in list." << std::endl;
+			std::cout << "Value " << dataToFind << " not found in list." << std::endl;
 		}
 		return nullptr;
 	}
 	
 	// Deletes a node from the linked list
-	void Delete(LinkedList_Node<T>* delNode)
+	void Delete(T dataToFind)
 	{
+		LinkedList_Node<T>* delNode = Find(dataToFind, true);
+
 		// Stops the function if a nullptr is passed in
 		if (delNode == nullptr)
 		{
-			std::cout << "Value not found in list." << std::endl;
+			std::cout << "Value " << dataToFind << " not found in list." << std::endl;
 			return;
 		}
 		// Node is only node in the list
@@ -149,11 +151,10 @@ public:
 			delNode->GetPrevNode()->SetNextNode(delNode->GetNextNode());
 		}
 		DecreaseNodeCount();
-		std::cout << "Value " << delNode->GetNodeData() << " deleted from the list." << 
+		std::cout << "Value " << delNode->GetNodeData() << " deleted from the list." <<
 			std::endl;
 		// Deletes the node
 		delete delNode;
-
 	}
 
 	// Outputs the key values of each node to the console
