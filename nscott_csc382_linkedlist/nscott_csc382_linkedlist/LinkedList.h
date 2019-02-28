@@ -273,6 +273,25 @@ public:
 		}
 	}
 
+	void SwapValues(LinkedList_Node<Type>* node1, LinkedList_Node<Type>* node2)
+	{
+		if (node1 == node2)
+		{
+			std::cout << "Cannot switch values between the same node.\n\n";
+			return;
+		}
+		else if (node1 == nullptr || node2 == nullptr)
+		{
+			std::cout << "Cannot switch the value of a null pointer.\n\n";
+			return;
+		}
+
+		// Swaps the values in place
+		node1->SetValue(node1->GetValue() + node2->GetValue());
+		node2->SetValue(node1->GetValue() - node2->GetValue());
+		node1->SetValue(node1->GetValue() - node2->GetValue());
+	}
+
 	// Determines if the linked list is empty
 	bool IsEmpty()
 	{
