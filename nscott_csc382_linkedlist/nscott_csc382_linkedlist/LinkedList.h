@@ -1,31 +1,43 @@
-#ifndef LinkedList_H
-#define LinkedList_H
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
 #include <iostream>
 
-#include "LinkedList_Iterator.h"
-#include "LinkedList_Node.h"
+#include "LL_Iterator.h"
+#include "LL_Node.h"
 
 template <typename T> class LinkedList
 {
 private:
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="newValue"></param>
+	/// <returns></returns>
 	int nodeCount = 0; // Stores a count of the number of nodes in the list
-	LinkedList_Node<T>* headNode = nullptr; // Stores a pointer to the first node in the list
-	LinkedList_Node<T>* tailNode = nullptr; // Stores a pointer to the last node in the list
-	
-	// Decreases the count of the number of nodes stored in the linked list
+	LL_Node<T>* headNode = nullptr; // Stores a pointer to the first node in the list
+	LL_Node<T>* tailNode = nullptr; // Stores a pointer to the last node in the list
+
+	/// <summary>
+	/// Decreases the count of the number of nodes stored in the linked list.
+	/// </summary>
 	void DecreaseNodeCount()
 	{
 		nodeCount--;
 	}
-	
-	// Increases the count of the number of nodes stored in the linked list
+
+	/// <summary>
+	/// Increases the count of the number of nodes stored in the linked list.
+	/// </summary>
 	void IncreaseNodeCount()
 	{
 		nodeCount++;
 	}
 
-	// Outputs the key values and addresses of the current node and its adjacent nodes
+	/// <summary>
+	/// Outputs the key values and addresses of the current node and its adjacent nodes.
+	/// </summary>
+	/// <param name="targetNode">A pointer to the node object that will have its details printed to the console.</param>
 	void PrintDetails(LinkedList_Node<T>* targetNode)
 	{
 		// Shows node's value
@@ -52,14 +64,25 @@ private:
 		std::cout << " (" << targetNode->GetNextNode() << ")";
 	}
 public:
-	LinkedList() {} // Default constructor
-	~LinkedList() {} // Default destructor
+	/// <summary>
+	/// Default constructor.
+	/// </summary>
+	LinkedList() { } 
 
-	 // Creates a new node, and inserts it at the end the linked list
+	/// <summary>
+	/// Default destructor.
+	/// </summary>
+	~LinkedList() { }
+
+	/// <summary>
+	/// Creates a new node, and inserts it at the end the linked list.
+	/// </summary>
+	/// <param name="newData">The key value to look for in the linked list.</param>
+	/// <param name="verbose">Whether or not to output status messages to the console.</param>
 	void Insert(T newData, bool verbose = true)
 	{
 		// Creates a new node
-		LinkedList_Node<T>* newNode = new LinkedList_Node<T>();
+		LL_Node<T>* newNode = new LL_Node<T>();
 
 		// Sets the data being stored in the new node
 		newNode->SetNodeData(newData);
@@ -89,17 +112,23 @@ public:
 		}
 	}
 
-	// Finds the first instance of a key value in the linked list
-	LinkedList_Node<T>* Find(T dataToFind, bool suppressMsg = false)
+	/// <summary>
+	/// Finds the first instance of a key value in the linked list.
+	/// </summary>
+	/// <param name="dataToFind">The key value to look for in the linked list.</param>
+	/// <param name="verbose">Whether or not to output status messages to the console.</param>
+	/// <returns>A pointer to the node containing the key value. If no match is found, returns 
+	/// nullptr.</returns>
+	LL_Node<T>* Find(T dataToFind, bool verbose = true)
 	{
-		LinkedList_Iterator<T> listIterator(headNode); // Iterator
+		LL_Iterator<T> listIterator(headNode); // Iterator
 
 		// Loops through the list until a matching value is found
 		for (listIterator; listIterator.GetCurrentNode() != nullptr; listIterator.IterateFwd())
 		{
 			if (listIterator.GetNodeData() == dataToFind)
 			{
-				if (!suppressMsg)
+				if (!verbose)
 				{
 					std::cout << "Value " << dataToFind << " found at " << 
 						listIterator.GetCurrentNode() << std::endl;
@@ -108,17 +137,21 @@ public:
 			}
 		}
 		// If no value is found, returns a nullptr
-		if (!suppressMsg)
+		if (!verbose)
 		{
 			std::cout << "Value " << dataToFind << " not found in list." << std::endl;
 		}
 		return nullptr;
 	}
-	
-	// Deletes a node from the linked list
+
+	/// <summary>
+	/// Deletes a node from the linked list.
+	/// </summary>
+	/// <param name="newValue">The key value to look for in the linked list. If this value is 
+	/// found in a node, that node will be deleted.</param>
 	void Delete(T dataToFind)
 	{
-		LinkedList_Node<T>* delNode = Find(dataToFind, true);
+		LL_Node<T>* delNode = Find(dataToFind, true);
 
 		// Stops the function if a nullptr is passed in
 		if (delNode == nullptr)
@@ -157,8 +190,15 @@ public:
 		delete delNode;
 	}
 
-	// Outputs the key values of each node to the console
-	void PrintList(bool reverse = false, bool detailed = true) // Prints the values stored in the list
+	/// <summary>
+	/// Outputs the key values of each node to the console.
+	/// </summary>
+	/// <param name="reverse">Determines the order in which to print the list. false prints 
+	/// from head to tail; true prints from tail to head (reverse).</param>
+	/// <param name="detailed">Detailed mode will display each node’s value, as well as the 
+	/// value and address of the current node’s adjacent nodes, if desired. true prints the 
+	/// extra data; false only prints the key values.</param>
+	void PrintList(bool reverse = false, bool detailed = true)
 	{
 		// As long as there is at least one node in the list, prints the list
 		if (!IsEmpty())
@@ -166,7 +206,7 @@ public:
 			// Prints the list from tail to head 
 			if (reverse)
 			{
-				LinkedList_Iterator<T> listIterator(tailNode); // Iterator
+				LL_Iterator<T> listIterator(tailNode); // Iterator
 				std::cout << "Current list contents (in reverse order): ";
 
 				// Iterates through the list and outputs the contents of each node
@@ -188,7 +228,7 @@ public:
 			// Prints the list from head to tail
 			else
 			{
-				LinkedList_Iterator<T> listIterator(headNode); // Iterator
+				LL_Iterator<T> listIterator(headNode); // Iterator
 				std::cout << "Current list contents: ";
 
 				// Iterates through the list and outputs the contents of each node
@@ -214,13 +254,18 @@ public:
 			// Do nothing
 		}
 	}
-	
-	// Returns the smallest value stored in the nodes contained in the linked list
+
+	/// <summary>
+	/// Finds and returns the smallest value stored in the nodes contained in 
+	/// the linked list.
+	/// </summary>
+	/// <returns>Returns the smallest value stored in the nodes contained in 
+	/// the linked list.</returns>
 	T Minimum()
 	{
 		if (!IsEmpty())
 		{
-			LinkedList_Iterator<T> listIterator(headNode); // Iterator
+			LL_Iterator<T> listIterator(headNode); // Iterator
 			// Stores the lowest value and initializes it to the value of the head node
 			T minValue = listIterator.GetNodeData();
 
@@ -244,12 +289,18 @@ public:
 		}
 	}
 
-	// Returns the largest value stored in the nodes contained in the linked list
+	/// <summary>
+	/// Finds and returns the largest value stored in the nodes contained in 
+	/// the linked list
+	/// </summary>
+	/// <param name="newValue"></param>
+	/// <returns>The largest value stored in the nodes contained in the linked 
+	/// list.</returns>
 	T Maximum()
 	{
 		if (!IsEmpty())
 		{
-			LinkedList_Iterator<T> listIterator(headNode); // Iterator
+			LL_Iterator<T> listIterator(headNode); // Iterator
 			// Stores the highest value and initializes it to the value of the head node
 			T maxValue = listIterator.GetNodeData();
 
@@ -273,7 +324,12 @@ public:
 		}
 	}
 
-	void SwapValues(LinkedList_Node<Type>* node1, LinkedList_Node<Type>* node2)
+	/// <summary>
+	/// Swaps two key values between two different nodes.
+	/// </summary>
+	/// <param name="node1">A node that will be switching key values with node2.</param>
+	/// <param name="node2">A node that will be switching key values with node1.</param>
+	void SwapValues(LL_Node<Type>* node1, LL_Node<Type>* node2)
 	{
 		if (node1 == node2)
 		{
@@ -292,7 +348,10 @@ public:
 		node1->SetValue(node1->GetValue() - node2->GetValue());
 	}
 
-	// Determines if the linked list is empty
+	/// <summary>
+	/// Determines if the linked list is empty.
+	/// </summary>
+	/// <returns>True if empty, returns false if not.</returns>
 	bool IsEmpty()
 	{
 		if (headNode == nullptr && tailNode == nullptr)
@@ -305,12 +364,15 @@ public:
 			return false;
 		}
 	}
-	
-	// Returns the current count of the number of nodes in the linked list
+
+	/// <summary>
+	/// Returns the current count of the number of nodes in the linked list.
+	/// </summary>
+	/// <returns>The current count of the number of nodes in the linked list.</returns>
 	int GetNodeCount()
 	{
 		return nodeCount;
 	}
 };
 
-#endif // !LinkedList_H
+#endif // !LINKEDLIST_H
