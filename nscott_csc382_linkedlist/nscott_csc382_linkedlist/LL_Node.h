@@ -16,7 +16,8 @@ public:
 	LL_Node() { }
 
 	/// <summary>
-	/// Default destructor
+	/// Default destructor.
+
 	/// </summary>
 	~LL_Node() { }
 
