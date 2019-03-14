@@ -38,7 +38,7 @@ private:
 	/// Outputs the key values and addresses of the current node and its adjacent nodes.
 	/// </summary>
 	/// <param name="targetNode">A pointer to the node object that will have its details printed to the console.</param>
-	void PrintDetails(LL_Node<T>* targetNode)
+	void PrintDetails(LinkedList_Node<T>* targetNode)
 	{
 		// Shows node's value
 		std::cout << std::endl << targetNode->GetNodeData() << " Prev: ";
@@ -73,24 +73,6 @@ public:
 	/// Default destructor.
 	/// </summary>
 	~LinkedList() { }
-
-	/// <summary>
-	/// Gets the head node of this linked list.
-	/// </summary>
-	/// <returns>The pointer to the head node of this linked list.</returns>
-	LL_Node<T>* GetHeadNode()
-	{
-		return headNode;
-	}
-
-	/// <summary>
-	/// Gets the tail node of this linked list.
-	/// </summary>
-	/// <returns>The pointer to the tail node of this linked list.</returns>
-	LL_Node<T>* GetTailNode()
-	{
-		return tailNode;
-	}
 
 	/// <summary>
 	/// Creates a new node, and inserts it at the end the linked list.
@@ -347,7 +329,7 @@ public:
 	/// </summary>
 	/// <param name="node1">A node that will be switching key values with node2.</param>
 	/// <param name="node2">A node that will be switching key values with node1.</param>
-	void SwapValues(LL_Node<T>* node1, LL_Node<T>* node2)
+	void SwapValues(LL_Node<Type>* node1, LL_Node<Type>* node2)
 	{
 		if (node1 == node2)
 		{
