@@ -51,6 +51,22 @@ public:
 	}
 
 	/// <summary>
+	/// Returns the next node in the linked list without moving the iterator forward.
+	/// </summary>
+	LL_Node<T>* GetNextNode()
+	{
+		return currentNode->GetNextNode();
+	}
+
+	/// <summary>
+	/// Returns the previous node in the linked list without moving the iterator backward.
+	/// </summary>
+	LL_Node<T>* GetPrevNode()
+	{
+		return currentNode->GetPrevNode();
+	}
+
+	/// <summary>
 	/// Attempts to move to the previous node in the linked list.
 	/// </summary>
 	LL_Node<T>* IterateBack() 

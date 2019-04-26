@@ -167,7 +167,7 @@ public:
 	/// </summary>
 	/// <param name="newValue">The key value to look for in the linked list. If this value is 
 	/// found in a node, that node will be deleted.</param>
-	void Delete(T dataToFind)
+	void Delete(T dataToFind, bool verbose = true)
 	{
 		LL_Node<T>* delNode = Find(dataToFind, true);
 
@@ -201,11 +201,76 @@ public:
 			delNode->GetNextNode()->SetPrevNode(delNode->GetPrevNode());
 			delNode->GetPrevNode()->SetNextNode(delNode->GetNextNode());
 		}
+
 		DecreaseNodeCount();
-		std::cout << "Value " << delNode->GetNodeData() << " deleted from the list." <<
-			std::endl;
+
+		if (verbose)
+		{
+			std::cout << "Value " << delNode->GetNodeData() << " deleted from the list." <<
+				std::endl;
+		}
+
 		// Deletes the node
 		delete delNode;
+	}
+
+	void Delete(LL_Node<T>* delNode, bool verbose = true)
+	{
+		// Stops the function if a nullptr is passed in
+		if (delNode == nullptr)
+		{
+			std::cout << "Node not found in list." << std::endl;
+			return;
+		}
+		// Node is only node in the list
+		else if (delNode == headNode && delNode == tailNode)
+		{
+			headNode = nullptr;
+			tailNode = nullptr;
+		}
+		// Node is the head node
+		else if (delNode == headNode && delNode != tailNode)
+		{
+			headNode = delNode->GetNextNode();
+			headNode->ClearPrevNode();
+		}
+		// Node is the tail node
+		else if (delNode != headNode && delNode == tailNode)
+		{
+			tailNode = delNode->GetPrevNode();
+			tailNode->ClearNextNode();
+		}
+		// Node is somewhere in the middle of the list
+		else
+		{
+			delNode->GetNextNode()->SetPrevNode(delNode->GetPrevNode());
+			delNode->GetPrevNode()->SetNextNode(delNode->GetNextNode());
+		}
+
+		DecreaseNodeCount();
+
+		if (verbose)
+		{
+			std::cout << "Value " << delNode->GetNodeData() << " deleted from the list." <<
+				std::endl;
+		}
+
+		// Deletes the node
+		delete delNode;
+	}
+
+	void Clear()
+	{
+		LL_Iterator<T> listIterator(tailNode);
+
+		for (listIterator; listIterator.GetCurrentNode() != nullptr; listIterator)
+		{
+			LL_Node<T>* prevNode = listIterator.GetCurrentNode();
+			listIterator.IterateBack();
+			Delete(prevNode, false);
+		}
+		headNode = nullptr;
+		tailNode = nullptr;
 	}
 
 	/// <summary>
@@ -311,7 +376,6 @@ public:
 	/// Finds and returns the largest value stored in the nodes contained in 
 	/// the linked list
 	/// </summary>
-	/// <param name="newValue"></param>
 	/// <returns>The largest value stored in the nodes contained in the linked 
 	/// list.</returns>
 	T Maximum()
@@ -347,23 +411,30 @@ public:
 	/// </summary>
 	/// <param name="node1">A node that will be switching key values with node2.</param>
 	/// <param name="node2">A node that will be switching key values with node1.</param>
-	void SwapValues(LL_Node<T>* node1, LL_Node<T>* node2)
+	/// <param name="verbose">Whether or not to output status messages to the console.</param>
+	void SwapValues(LL_Node<T>* node1, LL_Node<T>* node2, bool verbose = true)
 	{
 		if (node1 == node2)
 		{
-			std::cout << "Cannot switch values between the same node.\n\n";
+			if (verbose)
+			{
+				std::cout << "Cannot switch values between the same node.\n\n";
+			}
 			return;
 		}
 		else if (node1 == nullptr || node2 == nullptr)
 		{
-			std::cout << "Cannot switch the value of a null pointer.\n\n";
+			if (verbose)
+			{
+				std::cout << "Cannot switch the value of a null pointer.\n\n";
+			}
 			return;
 		}
 
 		// Swaps the values in place
-		node1->SetValue(node1->GetValue() + node2->GetValue());
-		node2->SetValue(node1->GetValue() - node2->GetValue());
-		node1->SetValue(node1->GetValue() - node2->GetValue());
+		node1->SetNodeData(node1->GetNodeData() + node2->GetNodeData());
+		node2->SetNodeData(node1->GetNodeData() - node2->GetNodeData());
+		node1->SetNodeData(node1->GetNodeData() - node2->GetNodeData());
 	}
 
 	/// <summary>
@@ -390,6 +461,48 @@ public:
 	int GetNodeCount()
 	{
 		return nodeCount;
+	}
+
+	/// <summary>
+	/// Gets the index position of a node in the linked list.
+	/// </summary>
+	/// <param name="nodeToFind">The node to look for in the linked list.</param>
+	/// <returns>The index position of the node. Returns -1 if the node is not found.</returns>
+	int IndexOf(LL_Node<T>* nodeToFind)
+	{
+		LL_Iterator<T> myIter(headNode);
+		int index = 0;
+
+		for (myIter; myIter.GetCurrentNode() != nullptr; myIter.IterateFwd())
+		{
+			if (myIter.GetCurrentNode() == nodeToFind)
+			{
+				return index;
+			}
+			else
+			{
+				index++;
+			}
+		}
+
+		// If the node isn't found in the list, return a negative value as a failure signal
+		return -1;
+	}
+
+	/// <summary>
+	/// Find a node by its index position
+	/// </summary>
+	/// <param name="index">The index of the node to be found.</param>
+	/// <returns>The node found at the given index. Returns nullptr if no node exists at that position.</return>
+	LL_Node<T>* FindByIndex(int index)
+	{
+		LL_Iterator<T> myIter(headNode);
+		int loopCount = 0;
+		for (index; loopCount < index; myIter.IterateFwd())
+		{
+			loopCount++;
+		}
+		return myIter.GetCurrentNode();
 	}
 };
 
